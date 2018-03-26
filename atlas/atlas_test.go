@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"context"
 
+	"github.com/go-spatial/tegola"
 	"github.com/go-spatial/tegola/atlas"
 	"github.com/go-spatial/tegola/geom"
 	"github.com/go-spatial/tegola/provider/test"
@@ -115,6 +116,18 @@ func TestAtlasSeedMapTile(t *testing.T) {
 	testAtlas.SetCache(memory.New())
 
 	if ok := testAtlas.SeedMapTile(context.Background(), testMap, 0,0,0); ok != nil {
+		t.Errorf(ok.Error())	
+	}
+	
+}
+
+func TestAtlasPurgeMapTile(t *testing.T) {
+	
+	testAtlas := new(atlas.Atlas)
+	testAtlas.AddMap(testMap)
+	testAtlas.SetCache(memory.New())
+
+	if ok := testAtlas.PurgeMapTile(testMap, new(tegola.Tile)); ok != nil {
 		t.Errorf(ok.Error())	
 	}
 	
